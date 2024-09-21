@@ -36,7 +36,8 @@ public class BaseTests {
 
 
     @AfterClass
-    public void tearDown(){
+    public void tearDown() throws InterruptedException {
+        Thread.sleep(2000);
         driver.quit();
     }
 
