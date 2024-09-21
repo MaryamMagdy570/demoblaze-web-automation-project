@@ -17,8 +17,10 @@ public class LoginTests extends BaseTests {
     public void testLogin(){
         var loginPage = homePage.clickLogin();
         assertEquals(loginPage.getLoginModalTitle(),"Log in","Wrong Login Modal Title");
-        String myUsername = "Tota";
-        String myPassword = "Tota";
+
+
+        String myUsername = "Maryam&Basant";
+        String myPassword = "Maryam&Basant";
         loginPage.setUsernameField(myUsername);
         loginPage.setPasswordField(myPassword);
         String welcomeMessage = loginPage.clickLoginButton().getWelcomeMessage();

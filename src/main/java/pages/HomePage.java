@@ -21,6 +21,10 @@ public class HomePage {
         driver.findElement(By.linkText(linkText)).click();
     }
 
+    /**
+     * interact with Login Modal
+     * @return a class of type LoginModal
+     */
     public LoginModal clickLogin(){
         clickLink("Log in");
         By modalId = By.id("logInModal");
@@ -29,11 +33,24 @@ public class HomePage {
         return new LoginModal(driver);
     }
 
+    /**
+     * reading welcome message for user after login
+     * @return the welcome message
+     */
     public String getWelcomeMessage(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser")));
         return driver.findElement(By.id("nameofuser")).getText();
     }
+
+
+
+
+    public CartPage clickCart(){
+        clickLink("Cart");
+        return new CartPage(driver);
+    }
+
 
 
 }
