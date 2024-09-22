@@ -12,7 +12,6 @@ import static org.testng.Assert.assertEquals;
 public class LoginTests extends BaseTests {
 
 
-
     @Test
     public void testLogin(){
         var loginPage = homePage.clickLogin();

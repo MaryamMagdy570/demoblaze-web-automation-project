@@ -2,20 +2,72 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class HomePage {
 
     private WebDriver driver;
 
+    private By carouselItems = By.cssSelector(".carousel-inner .carousel-item");
+    private By activeSlide = By.cssSelector(".carousel-inner .carousel-item.active");
     //constructor
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
+
+
+    // Method to get all carousel slides
+    public List<WebElement> getAllSlides() {
+        return driver.findElements(carouselItems);
+    }
+
+    // Method to get the active slide
+    public WebElement getActiveSlide() {
+        return driver.findElement(activeSlide);
+    }
+
+    // Method to get the 'alt' attribute of the active slide image
+    public String getActiveSlideAltText() {
+        return getActiveSlide().findElement(By.tagName("img")).getAttribute("alt");
+    }
+
+    // Method to verify only one active slide is present
+    public boolean isSingleActiveSlide() {
+        int activeCount = 0;
+        for (WebElement slide : getAllSlides()) {
+            if (slide.getAttribute("class").contains("active")) {
+                activeCount++;
+            }
+        }
+        return activeCount == 1;
+    }
+
+
+
+    // Method to check visibility of slides
+    public boolean verifyOnlyOneSlideVisible() {
+        int visibleSlideCount = 0;
+
+        for (WebElement slide : getAllSlides()) {
+            boolean isVisible = slide.isDisplayed();
+
+            if (isVisible) {
+                visibleSlideCount++;
+                // Check if the image inside the visible slide is displayed
+                WebElement img = slide.findElement(By.tagName("img"));
+                if (!img.isDisplayed()) {
+                    return false; // Image not displayed
+                }
+            }
+        }
+        return visibleSlideCount == 1;
+    }
     /**
      * interact with Login Modal
      * @return a class of type LoginModal
@@ -62,6 +114,8 @@ public class HomePage {
     private void clickLink(String linkText) {
         driver.findElement(By.linkText(linkText)).click();
     }
+
+
 
 
 }
