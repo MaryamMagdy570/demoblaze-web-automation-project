@@ -37,9 +37,7 @@ public class PlaceOrdersTests extends BaseTests {
         placeOrderModal.setYearField(year);
 
         // GETTING AMOUNT OF ORDER
-        var amount = cartPage.getOrderPrice();
-        String parsedAmount = (amount == null || amount.isEmpty()) ? "0" : amount;
-
+        var orderPrice = cartPage.getOrderPrice();
 
 
         var successfulOrder = placeOrderModal.clickPurchaseButton();
@@ -52,7 +50,7 @@ public class PlaceOrdersTests extends BaseTests {
         softAssert.assertTrue(successfulOrder.getOrderId().matches("\\d{7}"), " id is not a random number of 7 digits");
 
         // test Amount is the same of order price
-        softAssert.assertEquals(successfulOrder.getOrderAmountInUSD(), parsedAmount," order price is wrong");
+        softAssert.assertEquals(successfulOrder.getOrderAmountInUSD(), orderPrice," order price is wrong");
 
         //test card number = the same entered
         softAssert.assertEquals(successfulOrder.getOrderCardNumber(),creditCard," wrong credit cart");

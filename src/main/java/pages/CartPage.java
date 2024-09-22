@@ -27,7 +27,8 @@ public class CartPage {
     }
 
     public String getOrderPrice(){
-        return driver.findElement(orderPrice).getText();
+        String amount =  driver.findElement(orderPrice).getText();
+        return (amount == null || amount.isEmpty()) ? "0" : amount;
     }
 
 
