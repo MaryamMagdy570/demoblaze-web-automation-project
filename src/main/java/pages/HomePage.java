@@ -48,6 +48,8 @@ public class HomePage {
 
 
     public ProductPage clickProduct(String productLink) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+         wait.until(ExpectedConditions.elementToBeClickable(By.linkText(productLink)));
         clickLink(productLink);
         return new ProductPage(driver);
     }
