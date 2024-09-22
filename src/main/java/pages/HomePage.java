@@ -18,7 +18,6 @@ public class HomePage {
 
     /**
      * interact with Login Modal
-     *
      * @return a class of type LoginModal
      */
     public LoginModal clickLogin() {

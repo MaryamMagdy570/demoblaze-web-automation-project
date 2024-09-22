@@ -8,10 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.*;
 import pages.HomePage;
 import utils.WindowManager;
 
@@ -25,25 +22,24 @@ public class BaseTests {
     public WebDriver driver;
     protected HomePage homePage;
 
-    @BeforeClass // before each class
+    //@BeforeClass // before each class
+    @BeforeSuite
     public void setUp() throws InterruptedException {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(getChromeOptions());
-        goHome();
-
+        driver.get("https://www.demoblaze.com/index.html");
         homePage = new HomePage(driver);
     }
 
 
-    @AfterClass
+    //@AfterClass
+    @AfterSuite
     public void tearDown() throws InterruptedException {
-        Thread.sleep(2000);
         driver.quit();
     }
 
-    @BeforeMethod
+    //@BeforeMethod
     public void goHome(){
-
         driver.get("https://www.demoblaze.com/index.html");
     }
 

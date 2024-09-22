@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="SuiteName">
+    <test name="TestName">
+        <classes>
+
+            <!-- Class 1 will run first -->
+
+            <!-- Class 2 will run second -->
+            <class name="addProduct.AddProductTests"/>
+            <!-- Class 3 will run third -->
+            <class name="placeorder.PlaceOrdersTests"/>
+        </classes>
+    </test>
+</suite>

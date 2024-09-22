@@ -33,8 +33,5 @@ public class LoginModal {
         return new HomePage(driver);
     }
 
-    public HomePage clickCancelButton(){
-        driver.findElement(cancelButton).click();
-        return new HomePage(driver);
-    }
+
 }
