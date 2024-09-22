@@ -1,16 +1,13 @@
-package scenarios;
+package validscenarios;
 
 import base.BaseTests;
-import login.LoginTests;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
-
-import java.util.prefs.BackingStoreException;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class TestScenario2 extends BaseTests {
+public class UserOrdersMultipleProducts extends BaseTests {
 
     @Test
     public void test() {

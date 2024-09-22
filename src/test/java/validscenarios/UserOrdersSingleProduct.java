@@ -1,15 +1,12 @@
-package scenarios;
+package validscenarios;
 
 import base.BaseTests;
-import login.LoginTests;
 import org.testng.annotations.Test;
-
-import java.util.prefs.BackingStoreException;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class TestScenario1 extends BaseTests {
+public class UserOrdersSingleProduct extends BaseTests {
 
     @Test
     public void test(){

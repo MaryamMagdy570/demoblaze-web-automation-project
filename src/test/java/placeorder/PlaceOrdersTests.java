@@ -2,29 +2,75 @@ package placeorder;
 
 
 import base.BaseTests;
-import org.openqa.selenium.By;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pages.CartPage;
+import org.testng.asserts.SoftAssert;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class PlaceOrdersTests extends BaseTests {
 
 
-    @Test
-    public void testPlacingOrder(){
+    @DataProvider(name = "customerData")
+    public Object[][] orderDataProvider() {
+        return new Object[][] {
+                // Format: {name, country, city, creditCard, month, year}
+                {"Maryam", "Egypt", "Cairo", "0000111122223333", "September", "2024" },
+
+        };
+    }
+
+    @Test(dataProvider = "customerData")
+    public void testPlacingOrder(String name, String country, String city,
+                                 String creditCard, String month, String year){
         var cartPage = homePage.clickCart();
         var placeOrderModal = cartPage.clickPlaceOrderButton();
-        placeOrderModal.setNameField("Maryam");
-        placeOrderModal.setCountryField("Eqyot");
-        placeOrderModal.setCityField("Cairo");
-        placeOrderModal.setCreditCardField("0000111122223333");
-        placeOrderModal.setMonthField("September");
-        placeOrderModal.setYearField("2024");
+        placeOrderModal.setNameField(name);
+        placeOrderModal.setCountryField(country);
+        placeOrderModal.setCityField(city);
+        placeOrderModal.setCreditCardField(creditCard);
+        placeOrderModal.setMonthField(month);
+        placeOrderModal.setYearField(year);
+
+        // GETTING AMOUNT OF ORDER
+        var amount = cartPage.getOrderPrice();
+        String parsedAmount = (amount == null || amount.isEmpty()) ? "0" : amount;
+
+
+
         var successfulOrder = placeOrderModal.clickPurchaseButton();
-        assertEquals(successfulOrder.getSuccessfulOrderMessage(),"Thank you for your purchase!","Wrong Message");
+
+
+        // test successful order message
+        softAssert.assertTrue(successfulOrder.getSuccessfulOrderMessage().contains("Thank you for your purchase"), "Wrong Message");
+
+        // test id
+        softAssert.assertTrue(successfulOrder.getOrderId().matches("\\d{7}"), " id is not a random number of 7 digits");
+
+        // test Amount is the same of order price
+        softAssert.assertEquals(successfulOrder.getOrderAmountInUSD(), parsedAmount," order price is wrong");
+
+        //test card number = the same entered
+        softAssert.assertEquals(successfulOrder.getOrderCardNumber(),creditCard," wrong credit cart");
+
+
+        //test Name on order is same as entered
+        softAssert.assertEquals(successfulOrder.getOrderName(),name," wrong customer name");
+
+        // test today date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        softAssert.assertEquals(LocalDate.parse(successfulOrder.getOrderDate(),formatter),
+                        LocalDate.now(), "wrong date");
+
+        // exit the modal
         successfulOrder.clickOkButton();
 
     }
+
+
 
 }

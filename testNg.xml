@@ -4,7 +4,7 @@
         <classes>
 
             <!-- Class 1 will run first -->
-
+            <class name="login.LoginTests"/>
             <!-- Class 2 will run second -->
             <class name="addProduct.AddProductTests"/>
             <!-- Class 3 will run third -->

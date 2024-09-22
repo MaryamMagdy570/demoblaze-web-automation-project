@@ -12,6 +12,8 @@ public class CartPage {
     private WebDriver driver;
     private By placeOrderButton = By.xpath("//button[contains(text(),'Place Order')]");
 
+    private By orderPrice = By.xpath("//h3[@id='totalp']");
+
     public CartPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -24,11 +26,10 @@ public class CartPage {
         return new PlaceOrderModal(driver);
     }
 
-    //inner class
+    public String getOrderPrice(){
+        return driver.findElement(orderPrice).getText();
+    }
 
-
-
-    //inner class 2
 
 
 }

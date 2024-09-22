@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import pages.HomePage;
 import utils.WindowManager;
 
@@ -22,6 +23,8 @@ public class BaseTests {
     public WebDriver driver;
     protected HomePage homePage;
 
+    public SoftAssert softAssert = new SoftAssert();
+
     //@BeforeClass // before each class
     @BeforeSuite
     public void setUp() throws InterruptedException {
@@ -32,10 +35,13 @@ public class BaseTests {
     }
 
 
-    //@AfterClass
-    //@AfterSuite
+    @AfterClass
     public void tearDown() throws InterruptedException {
         driver.quit();
+
+        // report assertions
+        softAssert.assertAll();
+
     }
 
     //@BeforeMethod
