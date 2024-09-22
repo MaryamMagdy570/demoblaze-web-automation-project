@@ -25,6 +25,8 @@ public class ProductPage {
 
     public void AcceptAlert (){
         driver.switchTo().alert().accept();
+        //WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+       // wait.until(ExpectedConditions.ale());
     }
 
     public String getAlertText(){

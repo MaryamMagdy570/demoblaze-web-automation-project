@@ -19,5 +19,21 @@ public class AddProductTests extends BaseTests {
         productPage.clickAddToCartButton();
         assertEquals(productPage.getAlertText(),"Product added","message is not correct");
         productPage.AcceptAlert();
+        driver.findElement(By.partialLinkText("Home")).click();
     }
+
+    @Test
+    public void testAddMultipleProducts (){
+        var productPage=homePage.clickProduct("Samsung galaxy s6");
+        productPage.clickAddToCartButton();
+        assertEquals(productPage.getAlertText(),"Product added","message is not correct");
+        productPage.AcceptAlert();
+        driver.findElement(By.partialLinkText("Home")).click();
+         productPage=homePage.clickProduct("Nokia lumia 1520");
+        productPage.clickAddToCartButton();
+        assertEquals(productPage.getAlertText() ,"Product added" ,"message is not correct");
+        productPage.AcceptAlert();
+    }
+
+
 }

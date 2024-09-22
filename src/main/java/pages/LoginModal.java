@@ -33,5 +33,4 @@ public class LoginModal {
         return new HomePage(driver);
     }
 
-
 }

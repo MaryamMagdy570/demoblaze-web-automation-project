@@ -33,7 +33,7 @@ public class BaseTests {
 
 
     //@AfterClass
-    @AfterSuite
+    //@AfterSuite
     public void tearDown() throws InterruptedException {
         driver.quit();
     }

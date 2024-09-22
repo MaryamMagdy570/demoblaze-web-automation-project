@@ -45,6 +45,11 @@ public class HomePage {
         return new CartPage(driver);
     }
 
+    public ContactModal clickContact(){
+        clickLink("Contact");
+        return new ContactModal(driver);
+    }
+
 
     public ProductPage clickProduct(String productLink) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
