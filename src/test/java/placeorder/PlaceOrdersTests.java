@@ -19,7 +19,7 @@ public class PlaceOrdersTests extends BaseTests {
     public Object[][] orderDataProvider() {
         return new Object[][] {
                 // Format: {name, country, city, creditCard, month, year}
-                {"Maryam", "Egypt", "Cairo", "0000111122223333", "September", "2024" },
+                {"Maryam", "Egypt", "Cairo", "0000111122223333", "9", "2024" },
 
         };
     }
@@ -28,6 +28,10 @@ public class PlaceOrdersTests extends BaseTests {
     public void testPlacingOrder(String name, String country, String city,
                                  String creditCard, String month, String year){
         var cartPage = homePage.clickCart();
+
+        // GETTING AMOUNT OF ORDER
+        var orderPrice = cartPage.getOrderPrice();
+
         var placeOrderModal = cartPage.clickPlaceOrderButton();
         placeOrderModal.setNameField(name);
         placeOrderModal.setCountryField(country);
@@ -35,9 +39,6 @@ public class PlaceOrdersTests extends BaseTests {
         placeOrderModal.setCreditCardField(creditCard);
         placeOrderModal.setMonthField(month);
         placeOrderModal.setYearField(year);
-
-        // GETTING AMOUNT OF ORDER
-        var orderPrice = cartPage.getOrderPrice();
 
 
         var successfulOrder = placeOrderModal.clickPurchaseButton();
