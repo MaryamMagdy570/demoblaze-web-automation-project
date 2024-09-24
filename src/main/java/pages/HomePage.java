@@ -177,6 +177,14 @@ public class HomePage {
         return new ProductPage(driver);
     }
 
+    /****************************************************************************************************/
+
+    public AboutUsModal clickAboutUs(){
+        driver.findElement(By.xpath("//a[contains(text(),'About us')]")).click();
+        return new AboutUsModal(driver);
+
+    }
+
 
 
 
