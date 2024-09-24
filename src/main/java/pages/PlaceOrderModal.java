@@ -13,7 +13,6 @@ public class PlaceOrderModal{
     private By monthField = By.id("month");
     private By yearField = By.id("year");
     private By purchaseButton = By.xpath("//button[contains(text(),'Purchase')]");
-    private By closeButton = By.xpath(" //body/div[@id='orderModal']/div[1]/div[1]/div[3]/button[1]");
 
 
     public PlaceOrderModal(WebDriver driver) {

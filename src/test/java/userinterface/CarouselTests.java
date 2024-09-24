@@ -10,7 +10,7 @@ import java.time.Duration;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class UserInterfaceTests extends BaseTests {
+public class CarouselTests extends BaseTests {
 
 
     @Test

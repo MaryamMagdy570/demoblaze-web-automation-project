@@ -7,20 +7,67 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomePage {
 
     private WebDriver driver;
 
+
     private By carouselItems = By.cssSelector(".carousel-inner .carousel-item");
     private By activeSlide = By.cssSelector(".carousel-inner .carousel-item.active");
+
+    //some ui element
+    private By websiteMainHeadline = By.id("nava");
+    private By productsContainer= By.id("contcont");
+
+
     //constructor
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
+    private void clickLink(String linkText) {
+        driver.findElement(By.linkText(linkText)).click();
+    }
 
+    /****************************************************************************************************/
+
+    public boolean checkHeadlineAppearance(){
+        return driver.findElement(websiteMainHeadline).isDisplayed();
+    }
+
+    public String getHeadlineTitle(){
+        return driver.findElement(websiteMainHeadline).getText();
+    }
+
+    public String getHeadlineLogoSrc(){
+        return driver.findElement(websiteMainHeadline)
+                .findElement(By.tagName("img")).getAttribute("src");
+    }
+
+    private String[] getProductsContainer(){
+        WebElement Container =driver.findElement(productsContainer);
+        List<WebElement> categories = Container.findElements(By.tagName("a"));
+        String[] categoriesText = new String[categories.size()];
+        for (int i = 0; i < categories.size(); i++) {
+            categoriesText[i] = categories.get(i).getText();
+        }
+        return categoriesText;
+    }
+
+    public String[] getProductsCategories(){
+        return Arrays.copyOfRange(getProductsContainer(), 1, 4);
+    }
+
+    public String getProductsCategoriesTitle(){
+        return getProductsContainer()[0];
+    }
+
+
+
+    /****************************************************************************************************/
 
     // Method to get all carousel slides
     public List<WebElement> getAllSlides() {
@@ -49,7 +96,6 @@ public class HomePage {
     }
 
 
-
     // Method to check visibility of slides
     public boolean verifyOnlyOneSlideVisible() {
         int visibleSlideCount = 0;
@@ -68,37 +114,37 @@ public class HomePage {
         }
         return visibleSlideCount == 1;
     }
-    /**
-     * interact with Login Modal
-     * @return a class of type LoginModal
-     */
+
+    /****************************************************************************************************/
+
+    // click on login button
     public LoginModal clickLogin() {
         clickLink("Log in");
-        By modalId = By.id("logInModal");
+        By loginModalId = By.id("logInModal");
         WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(modalId)));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(loginModalId)));
         return new LoginModal(driver);
     }
 
-    public SignUpModal clickSignUp(){
-        clickLink("Sign up");
-        By SignUpModal=By.id("signInModal");
-        WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(SignUpModal)));
-        return new SignUpModal(driver);
-    }
-
-
-    /**
-     * reading welcome message for user after login
-     *
-     * @return the welcome message
-     */
+    //reading welcome message for user after login
     public String getWelcomeMessage() {
         WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser")));
         return driver.findElement(By.id("nameofuser")).getText();
     }
+
+    /****************************************************************************************************/
+
+    // click on sign up button
+    public SignUpModal clickSignUp(){
+        clickLink("Sign up");
+        By SignUpModal = By.id("signInModal");
+        WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(SignUpModal)));
+        return new SignUpModal(driver);
+    }
+
+    /****************************************************************************************************/
 
 
     public CartPage clickCart() {
@@ -106,23 +152,24 @@ public class HomePage {
         return new CartPage(driver);
     }
 
+    /****************************************************************************************************/
+
     public ContactModal clickContact(){
         clickLink("Contact");
         return new ContactModal(driver);
     }
 
+    /****************************************************************************************************/
 
     public ProductPage clickProduct(String productLink) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-         wait.until(ExpectedConditions.elementToBeClickable(By.linkText(productLink)));
+        WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.elementToBeClickable(By.linkText(productLink)));
         clickLink(productLink);
         return new ProductPage(driver);
     }
 
 
-    private void clickLink(String linkText) {
-        driver.findElement(By.linkText(linkText)).click();
-    }
+
 
 
 
