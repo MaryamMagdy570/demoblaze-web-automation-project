@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -66,7 +67,15 @@ public class HomePage {
     }
 
 
+    public void hoverOverLink(String select){
+        WebElement selection = driver.findElement(By.linkText(select));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(selection).perform();
+    }
 
+    public String getWordColor(String select){
+        return driver.findElement(By.linkText(select)).getCssValue("color");
+    }
     /****************************************************************************************************/
 
     // Method to get all carousel slides
