@@ -80,6 +80,15 @@ public class HomePage {
         return new LoginModal(driver);
     }
 
+    public SignUpModal clickSignUp(){
+        clickLink("Sign up");
+        By SignUpModal=By.id("signInModal");
+        WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(SignUpModal)));
+        return new SignUpModal(driver);
+    }
+
+
     /**
      * reading welcome message for user after login
      *

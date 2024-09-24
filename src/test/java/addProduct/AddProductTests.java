@@ -29,7 +29,7 @@ public class AddProductTests extends BaseTests {
         assertEquals(productPage.getAlertText(),"Product added","message is not correct");
         productPage.AcceptAlert();
         driver.findElement(By.partialLinkText("Home")).click();
-         productPage=homePage.clickProduct("Nokia lumia 1520");
+        productPage=homePage.clickProduct("Nokia lumia 1520");
         productPage.clickAddToCartButton();
         assertEquals(productPage.getAlertText() ,"Product added" ,"message is not correct");
         productPage.AcceptAlert();
