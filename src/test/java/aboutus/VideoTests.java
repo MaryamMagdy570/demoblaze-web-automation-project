@@ -13,15 +13,21 @@ public class VideoTests extends BaseTests {
     public void videoTest() throws InterruptedException {
         AboutUsModal aboutusModal = homePage.clickAboutUs();
 
-        aboutusModal.startVideo();
+
+        aboutusModal.clickVideoPlayButton();
+        int minutesBefore = aboutusModal.getMinuteFromVideoTime();
 
 
-        aboutusModal.playVideo();
-        Double timeBefore = aboutusModal.getVideoTime();
-        Thread.sleep(5000);
-        aboutusModal.pauseVideo();
-        Double timeAfter = aboutusModal.getVideoTime();
-        assertTrue(timeAfter>timeBefore," video is not playing");
+       Thread.sleep(70000);
+
+
+        aboutusModal.clickPlayPauseButton();
+
+        int minutesAfter = aboutusModal.getMinuteFromVideoTime();
+
+
+        assertTrue(minutesAfter<minutesBefore,"video is not played");
+
 
     }
 }

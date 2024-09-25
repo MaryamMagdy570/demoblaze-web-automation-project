@@ -181,6 +181,8 @@ public class HomePage {
 
     public AboutUsModal clickAboutUs(){
         driver.findElement(By.xpath("//a[contains(text(),'About us')]")).click();
+        WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//h5[@id='videoModalLabel']"))));
         return new AboutUsModal(driver);
 
     }

@@ -13,33 +13,34 @@ import java.time.Duration;
 public class AboutUsModal {
 
     private WebDriver driver;
-    private By video = By.xpath("//video[@id='example-video_html5_api']");
-
+    private By videoPlayButton = By.xpath("//body/div[@id='videoModal']/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[4]/button[1]");
+    private By videoTime = By.className("vjs-remaining-time-display");
+    private By videoElement=By.className("vjs-poster");
 
     public AboutUsModal(WebDriver driver) {
         this.driver = driver;
     }
 
-
-    public void startVideo(){
-        WebDriverWait wait = new WebDriverWait(driver , Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("vjs-poster")));
-        driver.findElement(By.className("vjs-poster")).click();
+    public String getVideoTime (){
+        return driver.findElement(videoTime).getText();
     }
 
-    public void playVideo(){
-         JavascriptExecutor js = (JavascriptExecutor) driver;
-         js.executeScript("arguments[0].play();", driver.findElement(video));
+    public void clickVideoPlayButton(){
+        driver.findElement(videoElement).click();
     }
 
-    public void pauseVideo(){
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("return arguments[0].paused;", driver.findElement(video));
+
+    public int getMinuteFromVideoTime() {
+        String time = getVideoTime(); // Get the time from the video
+        String minuteString = time.substring(0, 2); // Extract the minutes (first two characters)
+        return Integer.parseInt(minuteString); // Convert to integer
     }
 
-    public Double getVideoTime() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        return (Double) js.executeScript("return arguments[0].currentTime;", driver.findElement(video));
-    }
+    public void clickPlayPauseButton (){
+        driver.findElement(videoPlayButton).click();
 
+    }
 }
+
+
+
