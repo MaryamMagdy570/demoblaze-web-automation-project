@@ -1,10 +1,7 @@
 package base;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
@@ -35,7 +32,7 @@ public class BaseTests {
     }
 
 
-    @AfterClass
+    @AfterSuite
     public void tearDown() throws InterruptedException {
         driver.quit();
 
@@ -52,6 +49,10 @@ public class BaseTests {
 
     @AfterMethod
     public void recordFailure(ITestResult result) throws IOException {
+        //gohome
+        driver.findElement(By.partialLinkText("Home")).click();
+
+        //record failure
         if (ITestResult.FAILURE== result.getStatus()){
             var camera = (TakesScreenshot) driver;
             File screenshot = camera.getScreenshotAs(OutputType.FILE);

@@ -1,6 +1,7 @@
 package signUp;
 
 import base.BaseTests;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.SignUpModal;
 
@@ -24,11 +25,23 @@ public class SignUpTests extends BaseTests {
 
     }
 
-    @Test
-    public void testSignUPFunctionality(){
+    @DataProvider(name = "testSignUPFunctionality")
+    public Object[][] signUPDataProvider() {
+        return new Object[][] {
+                // Format: {name, country, city, creditCard, month, year}
+                {7, 6},
+                {7,2},
+
+
+
+        };
+    }
+
+    @Test(dataProvider = "signUPDataProvider")
+    public void testSignUPFunctionality(int usernameSize,int passwordSize){
         var signUpModal=homePage.clickSignUp();
-        String Username= SignUpModal.RandomUtils.getRandomString(8);
-        String Password=SignUpModal.RandomUtils.getRandomString(10);
+        String Username= SignUpModal.RandomUtils.getRandomString(usernameSize);
+        String Password=SignUpModal.RandomUtils.getRandomString(passwordSize);
 
         signUpModal.setSignUpUsernameField(Username);
         signUpModal.setSignUpPasswordField(Password);

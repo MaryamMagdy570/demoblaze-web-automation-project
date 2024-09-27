@@ -9,7 +9,6 @@ public class LoginModal {
     private By usernameInputField = By.id("loginusername");
     private By passwordInputField = By.id("loginpassword");
     private By loginButton = By.xpath("//button[contains(text(),'Log in')]");
-    private By cancelButton = By.xpath("//body/div[@id='logInModal']/div[1]/div[1]/div[3]/button[1]");
 
 
     public LoginModal(WebDriver driver) {
