@@ -49,7 +49,7 @@ public class CartPage {
         String[] productsNamesList = new String[productRows.size()];
         for (int i = 0; i < productRows.size(); i++) {
             List<WebElement> productDetails = productRows.get(i).findElements(By.tagName("td"));
-            productsNamesList[i] = productDetails.get(1).getText();
+            productsNamesList[i] = productDetails.get(1).getText().toString();
         }
         return productsNamesList;
     }

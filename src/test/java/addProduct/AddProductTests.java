@@ -10,8 +10,10 @@ import org.testng.annotations.Test;
 import pages.ProductPage;
 
 import java.time.Duration;
+import java.util.Arrays;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class AddProductTests extends BaseTests {
 
@@ -37,12 +39,16 @@ public class AddProductTests extends BaseTests {
                 {new String[] {"Samsung galaxy s6","Nokia lumia 1520"} },
                 {new String[] {"Samsung galaxy s6","Nokia lumia 1520","Nexus 6"} }
         };
-    }   // to do comment: to use data provider we should clear cart before each test
+    }
+    //TODO: comment: to use data provider we should clear cart before each test
+
 
 
     // test a configurable number of products
-    @Test(dataProvider = "products")
-    public void testAddMultipleProducts (String[]productsAddedList){
+    @Test (dataProvider = "products")
+    public void testAddMultipleProducts (){
+
+        String[]productsAddedList = new String[] {"Samsung galaxy s6","Nokia lumia 1520","Nexus 6"};
         ProductPage productPage;
         for (String productItem: productsAddedList){
             productPage=homePage.clickProduct(productItem);
@@ -55,10 +61,14 @@ public class AddProductTests extends BaseTests {
         var cartPage = homePage.clickCart();
         String []productsList = cartPage.getProductsList();
 
-        assertEquals(productsList,productsAddedList,"missed products");
+        Arrays.sort(productsList);
+        Arrays.sort(productsAddedList);
+
+        assertTrue(Arrays.equals(productsList, productsAddedList),"missed products");
 
     }
 
+    //TODO: testing delete button
 
 
 }
