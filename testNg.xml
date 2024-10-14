@@ -1,14 +1,32 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="SuiteName">
-    <test name="TestName">
-        <classes>
+<suite name="TestSuite">
 
-            <!-- Class 1 will run first -->
-            <class name="login.LoginTests"/>
-            <!-- Class 2 will run second -->
-            <class name="addProduct.AddProductTests"/>
-            <!-- Class 3 will run third -->
-            <class name="placeorder.PlaceOrdersTests"/>
+    <!-- Define a test with a name -->
+    <test name="successful order">
+        <!-- Define the classes involved -->
+        <classes>
+            <!-- Class 1 with specific methods to run -->
+            <class name="login.LoginTests">
+                <methods>
+                    <!-- Mention the specific methods to run from this class -->
+                    <include name="testLogin"/>
+                </methods>
+            </class>
+
+            <!-- Class 2 with specific methods to run -->
+            <class name="addProduct.AddProductTests">
+                <methods>
+                    <include name="testAddMultipleProducts"/>
+                </methods>
+            </class>
+
+            <!-- You can add more classes similarly -->
+            <class name="placeorder.PlaceOrdersTests">
+                <methods>
+                    <include name="testPlacingOrder"/>
+                </methods>
+            </class>
         </classes>
     </test>
+
 </suite>

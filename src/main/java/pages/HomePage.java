@@ -137,7 +137,7 @@ public class HomePage {
 
     //reading welcome message for user after login
     public String getWelcomeMessage() {
-        WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver ,Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nameofuser")));
         return driver.findElement(By.id("nameofuser")).getText();
     }

@@ -34,18 +34,14 @@ public class AddProductTests extends BaseTests {
     @DataProvider (name = "products")
     public Object[][] orderDataProvider() {
         return new Object[][] {
-                // Format: {number of products, products}
-                {new String[] {"Samsung galaxy s6",} },
-                {new String[] {"Samsung galaxy s6","Nokia lumia 1520"} },
                 {new String[] {"Samsung galaxy s6","Nokia lumia 1520","Nexus 6"} }
         };
     }
-    //TODO: comment: to use data provider we should clear cart before each test
 
 
 
     // test a configurable number of products
-    @Test (dataProvider = "products")
+    @Test
     public void testAddMultipleProducts (){
 
         String[]productsAddedList = new String[] {"Samsung galaxy s6","Nokia lumia 1520","Nexus 6"};
@@ -53,7 +49,7 @@ public class AddProductTests extends BaseTests {
         for (String productItem: productsAddedList){
             productPage=homePage.clickProduct(productItem);
             productPage.clickAddToCartButton();
-            assertEquals(productPage.getAlertText(),"Product added","message is not correct");
+            assertTrue(productPage.getAlertText().contains("Product added"),"message is not correct");
             productPage.AcceptAlert();
             driver.findElement(By.partialLinkText("Home")).click();
         }

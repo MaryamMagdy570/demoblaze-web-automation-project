@@ -29,6 +29,7 @@ public class LoginModal {
 
     public HomePage clickLoginButton(){
         driver.findElement(loginButton).click();
+
         return new HomePage(driver);
     }
 

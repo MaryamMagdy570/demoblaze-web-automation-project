@@ -1,5 +1,6 @@
 package base;
 
+import dev.failsafe.internal.util.Durations;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,45 +14,41 @@ import utils.WindowManager;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.Duration;
 
 
 public class BaseTests {
 
-    public WebDriver driver;
+    protected static WebDriver driver;
     protected HomePage homePage;
 
     public SoftAssert softAssert = new SoftAssert();
 
-    //@BeforeClass // before each class
     @BeforeSuite
-    public void setUp() throws InterruptedException {
+    public void setUpSuite() {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver(getChromeOptions());
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         driver.get("https://www.demoblaze.com/index.html");
+    }
+
+    @BeforeClass
+    public void setUp() throws InterruptedException {
         homePage = new HomePage(driver);
     }
 
-
     @AfterSuite
-    public void tearDown() throws InterruptedException {
-        driver.quit();
-
-        // report assertions
+    public void tearDownSuite() {
+        if (driver != null) {
+            driver.quit();
+        }
         softAssert.assertAll();
-
-    }
-
-    //@BeforeMethod
-    public void goHome(){
-        driver.get("https://www.demoblaze.com/index.html");
     }
 
 
     @AfterMethod
     public void recordFailure(ITestResult result) throws IOException {
-        //gohome
-        driver.findElement(By.partialLinkText("Home")).click();
-
         //record failure
         if (ITestResult.FAILURE== result.getStatus()){
             var camera = (TakesScreenshot) driver;
